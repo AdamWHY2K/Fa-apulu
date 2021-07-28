@@ -4,9 +4,9 @@ Author: AdamWHY2K
 A rainmeter skin for launching steam games, and non-steam games manually added to steam.
 
 # Requirements
-Rainmeter 4.3.1 r3321 or later.
-Python 3.7 or later.
-Steam.
+* Rainmeter 4.3.1 r3321 or later.
+* Python 3.7 or later.
+* Steam.
 
 # Installation
 * Ensure requirements are installed.

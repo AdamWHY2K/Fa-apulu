@@ -1,5 +1,6 @@
 # Fa-apulu
 Author: AdamWHY2K
+
 A rainmeter skin for launching steam games, and non-steam games manually added to steam.
 
 # Requirements

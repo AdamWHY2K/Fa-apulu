@@ -14,23 +14,30 @@ persistantDict_content = []
 
 with open("..\\LocalVariables.txt", "r") as inFile:
 	LocalVariables = inFile.readlines()
+#Importing user defined path and steam account identifier.
 
 readData = PyVDF()
 readData.load(LocalVariables[0][:-1] + "\\userdata\\" + LocalVariables[1] + "\\config\\localconfig.vdf")
+#LocalVariable[0] is user's steam path, LocalVariables[1] is user's steam account identifier.
 readData = readData.getData()
+#Using PyVDF to load localconfig.vdf into a dictionary, possible to extract everything using open() but this is much easier.
 
-readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"]
 
 for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"]:
     idList.append(i)
+    #Extracting all ids into a list
 
-idList.pop()
+if "0" in idList:
+    idList.pop()
+    #For whatever reason steam sometimes has a 0 in the id list, but zero isn't actually an app id so we just remove it.
 
 for i in idList:
     tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"][i]["LastPlayed"]:i}
     completeDict.update(tempDict)
+    #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
 
 def AddNonSteam(ID):
+    #This must be called every time a non steam game is launched.
     temp_persistantDict_content = []
     found = 0
     ErrorPosition = 0
@@ -41,6 +48,7 @@ def AddNonSteam(ID):
     with open("..\\NonSteamDict.txt", "r") as temp_persistantDict_file:
         for i in temp_persistantDict_file:
             temp_persistantDict_content.append(i)
+            #Import existing non steam game data
 
     for i in range(0, len(temp_persistantDict_content)):
         if ID in temp_persistantDict_content[i].split(":")[1][2:-3]:
@@ -48,6 +56,7 @@ def AddNonSteam(ID):
             ErrorPosition = i
         else:
             pass
+        #Record the position of the duplicate in the file if the app id is already recorded.
 
     if found == 1:
         for i in range(0, len(temp_persistantDict_content)):
@@ -57,11 +66,12 @@ def AddNonSteam(ID):
 
             SavedLines.insert(line_index, temp_persistantDict_content[i])
         del SavedLines[ErrorPosition]
+        #Delete the duplicate line.
         with open("..\\NonSteamDict.txt", "w") as persistantDict_file:
             persistantDict_file.write(str(tempDict) + "\n")
     else:
         with open("..\\NonSteamDict.txt", "a") as persistantDict_file:
-            persistantDict_file.write(str(tempDict) + "\n")
+            persistantDict_file.write(str(tempDict) + "\n") 
 
 with open("..\\NonSteamDict.txt", "r") as persistantDict_file:
     for i in persistantDict_file:
@@ -70,11 +80,11 @@ with open("..\\NonSteamDict.txt", "r") as persistantDict_file:
 for i in range(0, len(persistantDict_content)):
     tempDict = {persistantDict_content[i].split(":")[0][2:-1]:persistantDict_content[i].split(":")[1][2:-3]}
     completeDict.update(tempDict)
-
+    #Add non steam id and unix timestamp to the completed dictionary, allowing them to be compared with steam games.
 
 for i in sorted(completeDict, reverse = True):
     idOrdered.append(completeDict[i])
-
+    #Sort app ids by latest played.
 
 with open("..\\IncludeVariables.inc", "w") as temp:
     temp.write("[Variables]\n")
@@ -87,9 +97,11 @@ with open("..\\IncludeVariables.inc", "a") as out:
             out.write("MeterImageVar" + str(MeterImage) + " = " + i + "\n")
         else:
             break
+        #Write the latest 35 app ids to a file to be read by rainmeter.
 
 if __name__ == '__main__':
     try:
         globals()[argv[1]](argv[2])
     except IndexError:
         pass
+#Allows AddNonSteam() to be called from cmd.

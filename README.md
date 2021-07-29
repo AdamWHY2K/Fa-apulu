@@ -2,6 +2,7 @@
 Author: AdamWHY2K
 
 A rainmeter skin for launching steam games, and non-steam games manually added to steam. 
+
 Displays 7 slots each scroll to a maximum of 5 scrolls for a total of 35 slots. This can be edited to show more or less total/per scroll. 
 
 <img src="https://user-images.githubusercontent.com/68286215/127569067-8b73f156-32ac-448d-8d6b-de79335cf354.gif" width="180" height="500">

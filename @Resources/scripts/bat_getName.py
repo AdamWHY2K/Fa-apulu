@@ -9,7 +9,20 @@ foundAccount = None
 
 path = input('Paste steam installation directory, e.g "C:\\Program Files\\Steam"\n\n')
 
-accountDir = listdir(path + "\\userdata")
+while True:
+    if "Steam" not in path or ":" not in path or "\\" not in path:
+        print("Incorrect path detected, please try again\n\n")
+        path = input("Paste steam installation directory (The folder that steam.exe resides)\n\n")
+    else:
+        break
+    #While loop keeps user from entering a tragically incorrect path
+try:
+    accountDir = listdir(path + "\\userdata")
+except FileNotFoundError:
+    print("Critical error, check your steam directory. " + path + "\\userdata doesn't exist?\n")
+    input("Press enter then retry.\n")
+    exit()
+    #Try block catches exception if user enters the wrong steam path.
 
 for i in accountDir:
     if accountDir[count] == "0":

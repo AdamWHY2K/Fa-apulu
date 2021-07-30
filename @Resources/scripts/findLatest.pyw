@@ -23,7 +23,7 @@ readData = readData.getData()
 #Using PyVDF to load localconfig.vdf into a dictionary, possible to extract everything using open() but this is much easier.
 
 
-for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["Apps"]:
+for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"]:
     idList.append(i)
     #Extracting all ids into a list
 
@@ -32,7 +32,7 @@ if "0" in idList:
     #For whatever reason steam sometimes has a 0 in the id list, but zero isn't actually an app id so we just remove it.
 
 for i in idList:
-    tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["Apps"][i]["LastPlayed"]:i}
+    tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"][i]["LastPlayed"]:i}
     completeDict.update(tempDict)
     #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
 
@@ -67,8 +67,11 @@ def AddNonSteam(ID):
             SavedLines.insert(line_index, temp_persistantDict_content[i])
         del SavedLines[ErrorPosition]
         #Delete the duplicate line.
+        SavedLines.append(str(tempDict) + "\n")
+        #Add the updated timestamp to the rest of the recorded non steam game data
         with open("..\\NonSteamDict.txt", "w") as persistantDict_file:
-            persistantDict_file.write(str(tempDict) + "\n")
+            for i in range(0, len(SavedLines)):
+                persistantDict_file.write(SavedLines[i])
     else:
         with open("..\\NonSteamDict.txt", "a") as persistantDict_file:
             persistantDict_file.write(str(tempDict) + "\n") 

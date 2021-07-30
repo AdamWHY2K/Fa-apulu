@@ -1,9 +1,17 @@
 # Fa'apulu
 Author: AdamWHY2K
 
+I'd never say no to free pizza
+* BTC: bc1qh8gx78jckh0dpzdzz8sd37y7mhq7s4vzj0xu6q
+* BCH: bitcoincash:qzrqu0yecxka0p7sxr2g3fvpfcpg9x0awq3tf2m5ny
+* ETH: 0x4Da20578d2326b8299449838CCE11b966566F7E3
+
+## Description
 A rainmeter skin for launching steam games, and non-steam games manually added to steam. 
 
-Displays 7 slots each scroll to a maximum of 5 scrolls for a total of 35 slots. This can be edited to show more or less total/per scroll. 
+Initially displays 7 slots per page, pages can be navigated via scroll wheel. 
+
+By default there are 5 pages for a total of 35 slots. This can be edited from within **Main.ini** to increase or decrease the total number of slots/pages. Total width, height and slot width, height can also be edited from **Main.ini**.
 
 <img src="https://user-images.githubusercontent.com/68286215/127569067-8b73f156-32ac-448d-8d6b-de79335cf354.gif" width="180" height="500">
 

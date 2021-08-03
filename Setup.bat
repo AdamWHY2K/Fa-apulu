@@ -16,7 +16,7 @@
 :::					I'd never say no to free pizza
 :::				BTC: bc1qh8gx78jckh0dpzdzz8sd37y7mhq7s4vzj0xu6q
 :::				BCH: bitcoincash:qzrqu0yecxka0p7sxr2g3fvpfcpg9x0awq3tf2m5ny
-:::				ETH: 0x4Da20578d2326b8299449838CCE11b966566F7E3
+:::				ETH: 0x16560f37c1C908bb642f4e6D6Ac963Af044b9Dc7
 :::	___________________________________________________________________________________________________
 
 for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A

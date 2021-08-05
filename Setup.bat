@@ -26,6 +26,7 @@ timeout 3
 echo.
 echo Installing python package, exit and install python if you don't have it installed.
 pip install PyVDF
+pip install vdf
 
 echo.
 echo Starting first phase: "getName"

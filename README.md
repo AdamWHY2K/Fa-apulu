@@ -17,7 +17,7 @@ By default there are 5 pages for a total of 35 slots. This can be edited from wi
 
 # Requirements
 * Rainmeter 4.3.1 r3321 or later.
-* Python 3.7 or later.
+* Python 3.7 or later (Includes pip and added to PATH).
 * Steam.
 
 # Installation

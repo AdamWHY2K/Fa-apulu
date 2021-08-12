@@ -26,18 +26,27 @@ try:
 except UnicodeDecodeError:
     readData = vdf.load(open(LocalVariables[0][:-1] + "\\userdata\\" + LocalVariables[1] + "\\config\\localconfig.vdf", errors="ignore"))
 
-for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"]:
-    idList.append(i)
-    #Extracting all ids into a list
+try:
+    for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["Apps"]:
+        idList.append(i)
+        #Extracting all ids into a list
+except KeyError:
+    for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"]:
+        idList.append(i)
 
 if "0" in idList:
     idList.pop()
     #For whatever reason steam sometimes has a 0 in the id list, but zero isn't actually an app id so we just remove it.
 
-for i in idList:
-    tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"][i]["LastPlayed"]:i}
-    completeDict.update(tempDict)
-    #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
+try:
+    for i in idList:
+        tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["Apps"][i]["LastPlayed"]:i}
+        completeDict.update(tempDict)
+        #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
+except:
+    for i in idList:
+        tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"][i]["LastPlayed"]:i}
+        completeDict.update(tempDict)
 
 with open("@Resources\\NonSteamDict.txt", "r") as persistantDict_file:
     for i in persistantDict_file:

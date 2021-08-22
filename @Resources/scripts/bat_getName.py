@@ -47,8 +47,10 @@ for i in curatedDir:
         try:
             readData.load(steamPath + "\\userdata\\" + curatedDir[count] + "\\config\\localconfig.vdf")
             readData = readData.getData()
-            readData["UserLocalConfigStore"]["friends"]["PersonaName"]
-            completeDict.update({readData["UserLocalConfigStore"]["friends"]["PersonaName"]:curatedDir[count]})
+            readData = eval(repr(readData).lower())
+            #Many thanks to Cody Polera (https://github.com/cpolera) for recommending this KeyError fix.
+            readData["userlocalconfigstore"]["friends"]["personaname"]
+            completeDict.update({readData["userlocalconfigstore"]["friends"]["personaname"]:curatedDir[count]})
             #Adding user's steam name and steam account identifier to a dictionary.
             readData = PyVDF()
             count += 1
@@ -60,8 +62,6 @@ for i in curatedDir:
                 completeDict.update({line[16:-2]:curatedDir[count]})
                 line = []
                 count += 1
-    else:
-        pass
 
 found = False
 

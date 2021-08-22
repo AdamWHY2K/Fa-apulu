@@ -14,9 +14,10 @@
 :::					Github: github.com/AdamWHY2K
 :::
 :::					I'd never say no to free pizza
-:::				BTC: bc1qh8gx78jckh0dpzdzz8sd37y7mhq7s4vzj0xu6q
+:::				BTC: bc1qfgj4tk2a7hzyxmmrgx4mvumef5f6yfey737xsj
 :::				BCH: bitcoincash:qzrqu0yecxka0p7sxr2g3fvpfcpg9x0awq3tf2m5ny
-:::				ETH: 0x16560f37c1C908bb642f4e6D6Ac963Af044b9Dc7
+:::				ETH: 0xB253acEedD0E98C7a38D81a0FDCEca7Cf2ED1dc7
+:::				XMR: 47tW7pPZTW9LWxsB3KkWSgQgK9B5RH8yr9hPZ7jRofu8jTtPPxhpRVYjJvkK2EsYDsfpbMGBBQp5wNRrk4h6pPhG2rH1q8s
 :::	___________________________________________________________________________________________________
 
 for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A

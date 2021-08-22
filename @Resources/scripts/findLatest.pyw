@@ -66,29 +66,21 @@ try:
 except UnicodeDecodeError:
         readData = vdf.load(open(LocalVariables[0][:-1] + "\\userdata\\" + LocalVariables[1] + "\\config\\localconfig.vdf", errors="ignore"))
 
-try:
-    for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["Apps"]:
-        idList.append(i)
-        #Extracting all ids into a list
-except KeyError:
-    for i in readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"]:
-        idList.append(i)
-    #I'm getting reports of a keyerror exception firing for some people when "steam" is not "Steam", yet the opposite is true for me.
+readData = eval(repr(readData).lower())
+#Many thanks to Cody Polera (https://github.com/cpolera) for recommending this KeyError fix.
 
+for i in readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"]:
+    idList.append(i)
+    #Extracting all ids into a list
 
 if "0" in idList:
-    idList.pop()
+    idList.remove("0")
     #For whatever reason steam sometimes has a 0 in the id list, but zero isn't actually an app id so we just remove it.
 
-try:
-    for i in idList:
-        tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["Steam"]["Apps"][i]["LastPlayed"]:i}
-        completeDict.update(tempDict)
-        #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
-except KeyError:
-    for i in idList:
-        tempDict = {readData["UserLocalConfigStore"]["Software"]["Valve"]["steam"]["Apps"][i]["LastPlayed"]:i}
-        completeDict.update(tempDict)
+for i in idList:
+    tempDict = {readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"][i]["lastplayed"]:i}
+    completeDict.update(tempDict)
+    #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
 
 with open("..\\NonSteamDict.txt", "r") as persistantDict_file:
     for i in persistantDict_file:

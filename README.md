@@ -3,9 +3,17 @@ Author: AdamWHY2K
 
 I'd never say no to free pizza
 * BTC: bc1qfgj4tk2a7hzyxmmrgx4mvumef5f6yfey737xsj
+            
+                              <img src="https://user-images.githubusercontent.com/68286215/130465610-63a93f21-4c79-4de4-a1ee-2aeb6ed17a9a.png">
 * BCH: bitcoincash:qzrqu0yecxka0p7sxr2g3fvpfcpg9x0awq3tf2m5ny
+
+                              <img src="https://user-images.githubusercontent.com/68286215/130466304-f6b50ae3-2bf4-40df-bf6d-3adf95f2ec67.png">
 * ETH: 0xB253acEedD0E98C7a38D81a0FDCEca7Cf2ED1dc7
+
+                              <img src="https://user-images.githubusercontent.com/68286215/130466491-eeb2fc8e-3e20-4737-b80c-0f4808ff93d3.png">
 * XMR: 47tW7pPZTW9LWxsB3KkWSgQgK9B5RH8yr9hPZ7jRofu8jTtPPxhpRVYjJvkK2EsYDsfpbMGBBQp5wNRrk4h6pPhG2rH1q8s
+
+                              <img src="https://user-images.githubusercontent.com/68286215/130466563-1ad94060-fd62-4c87-ad3b-728858f8dcea.png">
 
 ## Description
 A rainmeter skin for launching steam games, and non-steam games manually added to steam. 

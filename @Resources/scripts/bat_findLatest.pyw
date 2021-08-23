@@ -1,9 +1,5 @@
 from PyVDF import PyVDF
 import vdf
-from time import time
-from os import system
-from shutil import copy
-from sys import argv
 
 LocalVariables = []
 idList = []

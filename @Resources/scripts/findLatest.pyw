@@ -1,7 +1,6 @@
 from PyVDF import PyVDF
 import vdf
 from time import time
-from os import system
 from shutil import copy
 from sys import argv
 
@@ -46,6 +45,8 @@ def AddNonSteam(ID):
         #Delete the duplicate line.
         SavedLines.append(str(tempDict) + "\n")
         #Add the updated timestamp to the rest of the recorded non steam game data
+        copy("..\\NonSteamDict.txt", "..\\backup_NonSteamDict.txt")
+        #Backup NonSteamDict incase file gets corrupted
         with open("..\\NonSteamDict.txt", "w") as persistantDict_file:
             for i in range(0, len(SavedLines)):
                 persistantDict_file.write(SavedLines[i])

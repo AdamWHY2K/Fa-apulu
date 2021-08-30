@@ -1,4 +1,10 @@
+Please report any issues to https://github.com/AdamWHY2K/Fa-apulu/issues
+
 Non steam games are supported:
+Automatic method:
+Run Spawn_NonSteamGame.py and follow its instructions.
+
+Manual method:
 1. Create .bat file to launch the non steam game's .exe
 2. Add this .bat file to steam as a non steam game
 3. Create desktop shortcut for this non steam game, right click > properties, and copy the numbers. This shortcut can then be deleted.

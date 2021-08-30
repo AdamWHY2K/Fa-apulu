@@ -1,13 +1,24 @@
-from os import listdir, getcwd, path
+from os import listdir, path
 from PyVDF import PyVDF
+from winreg import OpenKey, QueryValueEx, HKEY_LOCAL_MACHINE
 
 count = 0
 curatedDir = []
 readData = PyVDF()
 completeDict = {}
 foundAccount = None
+openedKey = OpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\WOW6432Node\Valve\Steam")
 
-steamPath = input('Paste steam installation directory, e.g "C:\\Program Files\\Steam"\n\n')
+while True:
+    answer = input("Is this your steam installation directory?\n" + QueryValueEx(openedKey, "InstallPath")[0] + "\nEnter \"Y\" or \"N\"\n\n")
+    if answer.lower() == "y":
+        steamPath = QueryValueEx(openedKey, "InstallPath")[0]
+        break
+    elif answer.lower() == "n":
+        steamPath = input('Paste steam installation directory, e.g "C:\\Program Files\\Steam"\n\n')
+        break
+    else:
+        print("Neither \"Y\" or \"N\" entered, try again.\n")
 
 while True:
     if "Steam" not in steamPath or ":" not in steamPath or "\\" not in steamPath:

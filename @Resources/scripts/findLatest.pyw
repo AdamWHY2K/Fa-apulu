@@ -74,9 +74,9 @@ for i in readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"]:
     idList.append(i)
     #Extracting all ids into a list
 
-if "0" in idList:
-    idList.remove("0")
-    #For whatever reason steam sometimes has a 0 in the id list, but zero isn't actually an app id so we just remove it.
+if "0" or "7" or "760" or "241100" in idList:
+    idList = set(idList) - {"0", "7", "760", "241100"}
+    #Steam stores some non-game information in the apps area of this file, so we'll just remove those ids.
 
 for i in idList:
     tempDict = {readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"][i]["lastplayed"]:i}

@@ -74,15 +74,14 @@ for i in readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"]:
     idList.append(i)
     #Extracting all ids into a list
 
-if "0" or "7" or "760" or "241100" in idList:
-    idList = set(idList) - {"0", "7", "760", "241100"}
-    #Steam stores some non-game information in the apps area of this file, so we'll just remove those ids.
-
 for i in idList:
-    tempDict = {readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"][i]["lastplayed"]:i}
-    completeDict.update(tempDict)
-    #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
-
+    try:
+        tempDict = {readData["userlocalconfigstore"]["software"]["valve"]["steam"]["apps"][i]["lastplayed"]:i}
+        completeDict.update(tempDict)
+        #Create a dictionary corresponding the unix timestamp from the last time the game was launched and the game's app id.
+    except KeyError:
+        pass
+    
 with open("..\\NonSteamDict.txt", "r") as persistantDict_file:
     for i in persistantDict_file:
         persistantDict_content.append(i)

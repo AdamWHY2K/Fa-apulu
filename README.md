@@ -12,20 +12,17 @@ A rainmeter skin for launching steam games, and non-steam games manually added t
 
 Initially displays 7 slots per page, pages can be navigated via scroll wheel. 
 
-By default there are 5 pages for a total of 35 slots. This can be edited from within **Main.ini** to increase or decrease the total number of slots/pages. Total width, height and slot width, height can also be edited from **Main.ini**.
+By default there are 5 pages for a total of 35 slots.
 
 <img src="https://user-images.githubusercontent.com/68286215/127569067-8b73f156-32ac-448d-8d6b-de79335cf354.gif" width="180" height="500">
 
 # Requirements
-* Rainmeter 4.5.5.3565 or later.
-* Python 3.7 or later (Includes pip and added to PATH).
-* Steam.
+* Rainmeter 4.5.17.3700 or later.
+* Steam must be running & you must be logged in.
 
 # Installation
 * Ensure requirements are installed.
 * Download a [release](https://github.com/AdamWHY2K/Fa-apulu/releases).
 * Run the .rmskin.
-* Navigate to the installation folder, e.g `A:\Documents\Rainmeter\Skins\Fa'apulu`.
-* Run **Setup.bat** and follow the instructions.
-* Load **Main.ini**, which should now list games, by latest played.
-* See **README.txt** for non steam game support.
+* Refresh the skin
+* See **NonSteam_README.txt** for non steam game support.

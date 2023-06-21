@@ -48,10 +48,10 @@ input("Press enter once you've completed the above.")
 appID = input("Enter the numbers you just copied:\n")
 
 with open(f"{gamePath}\\{gameName}.bat", "w") as createLauncher:
-    createLauncher.write(f"""chdir /d {skinPath}
-.\@Resources\Fa-apulu.exe \"{appID}\"
-chdir /d {gamePath}
-start \"\" {gameName}.exe
+    createLauncher.write(fr"""chdir /d "{skinPath}"
+.\@Resources\Fa-apulu.exe "{appID}"
+chdir /d "{gamePath}"
+start "" "{gameName}.exe"
 pause""")
 
 print(f"Final step is to find a banner, save the image as {appID}.jpg in {skinPath}\\@Resources\\headers")

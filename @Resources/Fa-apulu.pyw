@@ -10,8 +10,6 @@ import json
 import requests
 from wmi import WMI
 from pymsgbox import confirm
-
-
 import vdf
 
 
@@ -153,17 +151,16 @@ class NonSteamGame():
     def __init__(self, ID = -1) -> None:
         self.id = ID
         self.persistant_content = {}
-        self.found = False
-        self.error_position = 0
-        self.line_index = 0
-        self.saved_lines = []
         self.current_nonsteam_game = {ID:int(time.time())}
         self.nonsteam_path = f"{os.getcwd()}\\@Resources\\NonSteam.json"
 
     def read_nonsteam(self):
-        with open(self.nonsteam_path, "r", encoding="UTF-8") as json_file:
-            self.persistant_content = json.load(json_file)
-
+        try:
+            with open(self.nonsteam_path, "r", encoding="UTF-8") as json_file:
+                self.persistant_content = json.load(json_file)
+        except json.JSONDecodeError:
+            logging.info("No non-steam games detected")
+            
     def handle_duplicate(self):
         if self.id in self.persistant_content: # If supplied app id already has an entry
             del self.persistant_content[self.id] # Delete it
@@ -172,10 +169,9 @@ class NonSteamGame():
             self.persistant_content.update(self.current_nonsteam_game) # Still add new entries
 
     def write_nonsteam(self):
-        copy(self.nonsteam_path, f"{self.nonsteam_path}.bak") # Backup NonSteam.txt incase file gets corrupted
+        copy(self.nonsteam_path, f"{self.nonsteam_path}.bak") # Backup NonSteam.json incase file gets corrupted
         with open(self.nonsteam_path, "w", encoding="UTF-8") as out:
             json.dump(self.persistant_content, out)
-
 
     def update_installed_games(self):
         #Add non steam id and unix timestamp to the completed dictionary, allowing them to be compared with steam games.
@@ -184,7 +180,7 @@ class NonSteamGame():
     
 
 def check_for_updates():
-    current_version = "2.0.1"
+    current_version = "2.0.2"
     try:
         faapulu_github = requests.get("https://api.github.com/repos/AdamWHY2K/Fa-apulu/releases", timeout=30).json()
         latest_version = faapulu_github[0]["tag_name"][1:]

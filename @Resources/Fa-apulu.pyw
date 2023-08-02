@@ -14,7 +14,7 @@ import vdf
 
 
 class Faapulu():
-    def __init__(self) -> None:
+    def __init__(self, delay = 5000) -> None:
         logging.basicConfig(
             filename="Fa'apulu_Status.log",
             level=logging.DEBUG,
@@ -32,6 +32,7 @@ class Faapulu():
         self.header_files = []
         self.games_manifest = []
         self.installed_games = {}
+        self.ms_delay = delay
 
     def read_registry(self):
         logging.info("Reading Steam registry key")
@@ -130,7 +131,7 @@ Y={y_axis}
 W=230
 H=114
 ImageName=#@#headers\{game}.jpg
-LeftMouseUpAction=[steam://rungameid/{game}] [!CommandMeasure MeasureRun "Run"] [!Delay 5000][!Refresh "Fa'apulu"][!Delay 5000][!Refresh "Fa'apulu"]
+LeftMouseUpAction=[steam://rungameid/{game}] [!CommandMeasure MeasureRun "Run"] [!Delay {self.ms_delay}][!Refresh "Fa'apulu"][!Delay {self.ms_delay}][!Refresh "Fa'apulu"]
 MouseOverAction=[!SetOption MeterImageOverlay Y {y_axis}] [!SetOption MeterImageOverlay Hidden 0] [!Redraw]
 MouseLeaveAction=[!SetOption MeterImageOverlay Hidden 1] [!Redraw]
 Hidden=([MeasureImgNo]<>{page_number})
@@ -191,15 +192,15 @@ def check_for_updates():
         changelog = "Unable to find changelog"
         download_link = "https://github.com/AdamWHY2K/Fa-apulu"
     if current_version < latest_version:
-            if confirm(
-            f"\tCurrent version: {current_version}\n\t Latest version: {latest_version}\n\n{changelog}\n\nDownload now?",
-            "Fa'apulu - Update available",
-            buttons=["OK", "Cancel"]) == "OK":
-                webbrowser.open_new_tab(download_link) #Open download link in user's default browser
-                logging.debug("Downloading update")
-                raise SystemExit
-            else:
-                pass # Skip update this time, will ask again next time skin is refreshed or Rainmeter starts
+        if confirm(
+        f"\tCurrent version: {current_version}\n\t Latest version: {latest_version}\n\n{changelog}\n\nDownload now?",
+        "Fa'apulu - Update available",
+        buttons=["OK", "Cancel"]) == "OK": # If user clicks OK
+            webbrowser.open_new_tab(download_link) # Open download link in user's default browser
+            logging.debug("Downloading update")
+            raise SystemExit
+        else:
+            pass # Skip update this time, will ask again next time skin is refreshed or Rainmeter starts
     else:
         pass # User has latest version installed
 
@@ -210,14 +211,20 @@ def check_for_multiple_processes():
             raise SystemExit
 
 if __name__ == "__main__":
-    try: # Don't check for multiple processes when adding a non-steam game as this might stop NonSteam.txt from updating
-        NS = NonSteamGame(sys.argv[1])
+    try: # Don't check for multiple processes when adding a non-steam game as this might stop NonSteam.json from updating
+        if sys.argv[1] != "-1":
+            NS = NonSteamGame(sys.argv[1])
+        else:
+            raise IndexError
     except IndexError:
         check_for_multiple_processes()
         NS = NonSteamGame()
     check_for_updates()
     try:
+        F = Faapulu(sys.argv[2])
+    except IndexError:
         F = Faapulu()
+    try:
         NS.read_nonsteam()
         if NS.id != -1: # If called with a non steam app id parameter
             NS.handle_duplicate()

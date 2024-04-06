@@ -1,6 +1,7 @@
 import logging
 import winreg
 import os
+import re
 import glob
 import time
 from shutil import copy
@@ -85,7 +86,11 @@ class Faapulu():
             try:
                 for file in os.listdir(fr"{path}\steamapps"):
                     if file.endswith(".acf"):
-                        self.games_manifest.append(file.split("_")[1].split(".")[0])
+                        match = re.search("(?<=appmanifest_)\d+(?=[^_]*\.acf)", file)
+                        if match:
+                            self.games_manifest.append(match.group(0))
+                        else:
+                            log.warning(f"File: ${file} doesn't match regular appmanifest format.")
             except (FileNotFoundError, NotADirectoryError):
                 log.warning(fr"Path invalid: {path}\steamapps")
                 # User may have outdated paths in libraryfolders.vdf so we skip any currently invalid paths.

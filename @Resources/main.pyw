@@ -1,11 +1,9 @@
 import logging
-import webbrowser
 import sys
-from pymsgbox import confirm
 from wmi import WMI
-import requests
 import Faapulu
 import NonSteam
+import updater
 
 log = logging.getLogger("Fa'apulu_log")
 log.setLevel(logging.DEBUG)
@@ -20,33 +18,6 @@ stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.INFO)
 stream_handler.setFormatter(formatter)
 log.addHandler(stream_handler)
-
-
-def check_for_updates():
-    log.info("Checking for updates")
-    current_version = "2.1.0"
-    try:
-        faapulu_github = requests.get("https://api.github.com/repos/AdamWHY2K/Fa-apulu/releases", timeout=30).json()
-        latest_version = faapulu_github[0]["tag_name"][1:]
-        changelog = faapulu_github[0]["body"]
-        download_link = faapulu_github[0]["assets"][0]["browser_download_url"]
-    except (requests.ConnectTimeout, KeyError):
-        log.warning("Cannot connect to GitHub")
-        latest_version = "0"
-        changelog = "Unable to find changelog"
-        download_link = "https://github.com/AdamWHY2K/Fa-apulu"
-    if current_version < latest_version:
-        if confirm(
-        f"\tCurrent version: {current_version}\n\t Latest version: {latest_version}\n\n{changelog}\n\nDownload now?",
-        "Fa'apulu - Update available",
-        buttons=["OK", "Cancel"]) == "OK": # If user clicks OK
-            webbrowser.open_new_tab(download_link) # Open download link in user's default browser
-            log.info("Downloading update")
-            raise SystemExit
-        else:
-            log.warning("Skipping update")
-    else:
-        log.info("Latest version installed")
 
 def check_for_multiple_processes():
     for i, process in enumerate(WMI().Win32_Process(name="Fa-apulu.exe")):
@@ -63,7 +34,7 @@ if __name__ == "__main__":
     except IndexError:
         check_for_multiple_processes()
         NS = NonSteam.Game()
-    check_for_updates()
+    updater.check_for_updates("Fa'apulu", "https://api.github.com/repos/AdamWHY2K/Fa-apulu/releases", "2.1.1")
     try:
         F = Faapulu.Faapulu(sys.argv[2])
     except IndexError:
